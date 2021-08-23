@@ -35,7 +35,7 @@ jobs:
         with:
           name: versions
       - shell: bash
-        run: "source versions"
+        run: "source versions && echo $DOCTL_VERSION"
       - name: Login to DockerHub
         uses: docker/login-action@v1 
         with:
