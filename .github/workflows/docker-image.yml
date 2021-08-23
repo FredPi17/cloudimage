@@ -20,7 +20,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: versions
-          path: versions.txt
+          path: versions
           retention-days: 1
 
   docker:
@@ -35,7 +35,7 @@ jobs:
         with:
           name: versions
       - shell: bash
-        run: "source versions.txt"
+        run: "source versions"
       - name: Login to DockerHub
         uses: docker/login-action@v1 
         with:
