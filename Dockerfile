@@ -7,8 +7,10 @@ RUN apk add --no-cache \
     curl \
     jq
 
+RUN --mount=type=secret,id=MY_SECRET \
+  cat /run/secrets/MY_SECRET
 # Get tools versions
-COPY versions .
+#COPY versions .
 
 # Install doctl
 RUN . versions \
