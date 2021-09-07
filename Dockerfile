@@ -1,5 +1,4 @@
 FROM alpine:3.10
-ENV DOCKER_BUILDKIT=1
 # Install packages from package repository
 RUN apk add --no-cache \
     bash \
@@ -9,6 +8,7 @@ RUN apk add --no-cache \
     ansible \
     python3
 
+COPY versions .
 
 # Install doctl
 RUN . versions \
@@ -18,7 +18,7 @@ RUN . versions \
     && rm -f doctl.tar.gz
 
 # Install kubectl
-RUN . versions \
+RUN  . versions \
     && echo "installing kubectl ${KUBE_VERSION}" \
     && wget -q -O /usr/local/bin/kubectl "https://storage.googleapis.com/kubernetes-release/release/v${KUBE_VERSION}/bin/linux/amd64/kubectl" \
     && chmod +x /usr/local/bin/kubectl
