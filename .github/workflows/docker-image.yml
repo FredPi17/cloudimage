@@ -6,23 +6,6 @@ on:
       - 'master'
 
 jobs:
-  versions-check:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - name: Set update script executable
-        run: "chmod +x update_versions.sh"
-        shell: bash
-      
-      - name: Execute update script
-        run: "./update_versions.sh"
-      - name: 'Upload Artifact'
-        uses: actions/upload-artifact@v2
-        with:
-          name: versions
-          path: versions
-          retention-days: 1
-
   docker:
     runs-on: ubuntu-latest
     steps:
@@ -30,12 +13,6 @@ jobs:
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
-      - name: Download a single artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: versions
-      - shell: bash
-        run: "source versions && echo $DOCTL_VERSION"
       - name: Login to DockerHub
         uses: docker/login-action@v1 
         with:
@@ -45,7 +22,5 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          secret-files: |
-            "MY_SECRET=versions"
           push: true
           tags: fredericpinaud/cloudimage:latest

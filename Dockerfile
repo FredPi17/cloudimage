@@ -1,16 +1,14 @@
 FROM alpine:3.10
-
+ENV DOCKER_BUILDKIT=1
 # Install packages from package repository
 RUN apk add --no-cache \
     bash \
     gettext \
     curl \
-    jq
+    jq \
+    ansible \
+    python3
 
-RUN --mount=type=secret,id=MY_SECRET \
-  cat /run/secrets/MY_SECRET
-# Get tools versions
-#COPY versions .
 
 # Install doctl
 RUN . versions \
