@@ -6,6 +6,14 @@ on:
       - 'master'
 
 jobs:
+  versions-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set versions env
+        run: "source versions"
+        shell: bash
+
   docker:
     runs-on: ubuntu-latest
     steps:
