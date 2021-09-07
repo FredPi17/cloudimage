@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Set versions env
-        run: "source versions"
+        run: ". versions"
         shell: bash
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
