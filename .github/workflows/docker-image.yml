@@ -12,7 +12,6 @@ jobs:
       - uses: actions/checkout@v1
       - name: Set versions env
         run: ". versions"
-        shell: bash
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
