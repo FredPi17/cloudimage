@@ -37,4 +37,4 @@ COPY src/bin/gitlab-terraform.sh /usr/bin/gitlab-terraform
 RUN chmod +x /usr/bin/gitlab-terraform
 
 # Override ENTRYPOINT since hashicorp/terraform uses `terraform`
-ENTRYPOINT []
+#ENTRYPOINT []
