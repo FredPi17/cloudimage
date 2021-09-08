@@ -1,4 +1,4 @@
-FROM alpine:3.10
+FROM alpine:3.14.0
 # Install packages from package repository
 RUN apk add --no-cache \
     bash \
@@ -6,7 +6,9 @@ RUN apk add --no-cache \
     curl \
     jq \
     ansible \
-    python3
+    python3 \
+    git \
+    openssh
 
 COPY versions .
 
@@ -24,8 +26,15 @@ RUN  . versions \
     && chmod +x /usr/local/bin/kubectl
 
 # Install terraform
-RUN . versions \
-    && echo "installing terraform ${TERRAFORM_VERSION}" \
-    && wget -q -O /terraform.zip "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip" \
-    && unzip -qq /terraform.zip -d /bin \
-    && rm -f /terraform.zip
+RUN ( . versions && \ 
+      curl -sLo terraform.zip "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip" && \
+      unzip terraform.zip && \
+      rm terraform.zip && \
+      mv ./terraform /usr/local/bin/terraform \
+    ) && terraform --version
+
+COPY src/bin/gitlab-terraform.sh /usr/bin/gitlab-terraform
+RUN chmod +x /usr/bin/gitlab-terraform
+
+# Override ENTRYPOINT since hashicorp/terraform uses `terraform`
+ENTRYPOINT []
