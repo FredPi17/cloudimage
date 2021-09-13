@@ -11,6 +11,9 @@ RUN apk add --no-cache \
     openssh \
     docker
 
+RUN rc-update add docker boot 
+RUN docker status
+
 COPY versions .
 
 # Install doctl
