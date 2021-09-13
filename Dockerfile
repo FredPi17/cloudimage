@@ -8,11 +8,7 @@ RUN apk add --no-cache \
     ansible \
     python3 \
     git \
-    openssh \
-    docker \
-    openrc
-
-RUN rc-update add docker 
+    openssh
 
 COPY versions .
 
