@@ -9,10 +9,10 @@ RUN apk add --no-cache \
     python3 \
     git \
     openssh \
-    docker
+    docker \
+    openrc
 
 RUN rc-update add docker boot 
-RUN docker status
 
 COPY versions .
 
