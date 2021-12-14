@@ -9,7 +9,8 @@ RUN apk add --no-cache \
     python3 \
     git \
     openssh \
-    docker
+    docker \
+    openrc
 
 RUN apk update
 
